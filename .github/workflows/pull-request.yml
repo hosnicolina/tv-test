@@ -21,3 +21,6 @@ jobs:
 
       - name: Run tests
         run: npm test -- --colors
+
+      - name: Run eslint check
+        run: npm eslint
