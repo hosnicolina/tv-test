@@ -23,4 +23,4 @@ jobs:
         run: npm test -- --colors
 
       - name: Run eslint check
-        run: npm eslint
+        run: npm run eslint
