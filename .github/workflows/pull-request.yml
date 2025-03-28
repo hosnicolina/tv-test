@@ -23,4 +23,7 @@ jobs:
         run: npm test -- --colors
 
       - name: Run eslint check
+        run: npm run eslint
+
+      - name: Use eslint action
         uses: sibiraj-s/action-eslint@v3
