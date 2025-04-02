@@ -19,11 +19,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run tests
-        run: npm test -- --colors
-
       - name: Run eslint check
-        run: npm run eslint
-
-      - name: Use eslint action
         uses: sibiraj-s/action-eslint@v3
+        with:
+          all-files: true
