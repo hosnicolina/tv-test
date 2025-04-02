@@ -23,3 +23,7 @@ jobs:
         uses: sibiraj-s/action-eslint@v3
         with:
           all-files: true
+          ignore-path: .eslintignore
+          ignore-patterns: |
+            dist/
+            lib/
