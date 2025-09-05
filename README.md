@@ -32,7 +32,8 @@ This library is actively used and continuously tested on many devices and update
 
 <!-- INSERT_DETAILED_README_SPATNAV_HERE -->
 
-For detailed documentation, visit our [Developer Portal](https://devportal.noriginmedia.com/docs/Norigin-Spatial-Navigation/)
+# Developer Portal
+For more detailed documentation and usage examples, visit our [Developer Portal](https://devportal.noriginmedia.com/docs/Norigin-Spatial-Navigation/)
 
 # Related Blogs
 1. Use & benefits of using the Norigin Spatial Navigation library on Smart TVs [here](https://medium.com/p/77ed944d7be7).
