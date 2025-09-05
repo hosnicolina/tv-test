@@ -30,6 +30,10 @@ This library is actively used and continuously tested on many devices and update
 | Other Connected TV devices | Browser Based settop boxes with Chromium, Ekioh or Webkit browsers |
 | AndroidTV, AppleTV | Only [React Native](https://reactnative.dev/docs/building-for-tv) apps, limited functionality |
 
+<!-- INSERT_DETAILED_README_SPATNAV_HERE -->
+
+For detailed documentation, visit our [Developer Portal](https://devportal.noriginmedia.com/docs/Norigin-Spatial-Navigation/)
+
 # Related Blogs
 1. Use & benefits of using the Norigin Spatial Navigation library on Smart TVs [here](https://medium.com/p/77ed944d7be7).
 
