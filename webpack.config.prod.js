@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   mode: 'production',
   entry: './src/App.tsx',
-  target: ['web', 'es5'],
+  target: 'web',
   module: {
     rules: [
       {
@@ -26,14 +26,14 @@ module.exports = {
   output: {
     filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
-    libraryTarget: 'umd',
-    clean: true,
-    globalObject: 'this'
+    clean: true
   },
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: path.resolve('./', 'index.html')
+      template: path.resolve('./', 'index.html'),
+      inject: 'body',
+      scriptLoading: 'blocking'
     })
   ]
 };
