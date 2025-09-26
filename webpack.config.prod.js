@@ -1,14 +1,20 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: 'production',
-  entry: './src/index.ts',
+  entry: './src/App.tsx',
   target: ['web', 'es5'],
   module: {
     rules: [
       {
         test: /\.tsx?$/,
         use: 'ts-loader',
+        exclude: /node_modules/
+      },
+      {
+        test: /\.png$/,
+        loader: 'file-loader',
         exclude: /node_modules/
       }
     ]
@@ -23,5 +29,11 @@ module.exports = {
     libraryTarget: 'umd',
     clean: true,
     globalObject: 'this'
-  }
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: path.resolve('./', 'index.html')
+    })
+  ]
 };

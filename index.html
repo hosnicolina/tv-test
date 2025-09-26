@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Spatial Navigation Demo</title>
   <style>
     html, body, div, span, applet, object, iframe,
@@ -20,6 +21,25 @@
       margin: 0;
       padding: 0;
       border: 0;
+    }
+    
+    /* Ocultar cursor para navegación por TV */
+    * {
+      cursor: none !important;
+    }
+    
+    /* Estilos específicos para TV */
+    body {
+      overflow: hidden;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    }
+    
+    /* Prevenir zoom en TV */
+    html {
+      touch-action: manipulation;
     }
   </style>
 </head>

@@ -5,6 +5,14 @@ module.exports = {
   mode: 'development',
   target: 'web',
   entry: './src/App.tsx',
+  devServer: {
+    host: '0.0.0.0',
+    port: 8080,
+    allowedHosts: 'all',
+    client: {
+      webSocketURL: 'ws://0.0.0.0:8080/ws'
+    }
+  },
   module: {
     rules: [
       {

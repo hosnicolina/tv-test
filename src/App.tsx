@@ -17,13 +17,18 @@ import {
   FocusableComponentLayout,
   KeyPressDetails
 } from './index';
+import { configureTVEnvironment, isTVEnvironment } from './tvConfig';
 
 const logo = require('../logo.png').default;
 
 init({
   debug: false,
   visualDebug: false,
-  distanceCalculationMethod: 'center'
+  distanceCalculationMethod: 'center',
+  // Configuración optimizada para TV
+  throttle: 16, // 60fps
+  // Usar eventos nativos para mejor compatibilidad con TV
+  shouldUseNativeEvents: true
 });
 
 const rows = shuffle([
@@ -423,7 +428,7 @@ const DIRECTION_RIGHT = 'right';
 
 function ProgressBar() {
   const [percent, setPercent] = useState(defaultPercent);
-  const timerRef = useRef<NodeJS.Timer | null>(null);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
   const { ref, focused } = useFocusable({
     onArrowPress: (direction: string) => {
       if (direction === DIRECTION_RIGHT && timerRef.current === null) {
@@ -438,7 +443,9 @@ function ProgressBar() {
     },
     onArrowRelease: (direction: string) => {
       if (direction === DIRECTION_RIGHT) {
-        clearInterval(timerRef.current);
+        if (timerRef.current) {
+          clearInterval(timerRef.current);
+        }
         timerRef.current = null;
       }
     }
@@ -451,7 +458,9 @@ function ProgressBar() {
   useEffect(
     () => () => {
       if (timerRef.current !== null) {
-        clearInterval(timerRef.current);
+        if (timerRef.current) {
+          clearInterval(timerRef.current);
+        }
         timerRef.current = null;
       }
     },
@@ -466,6 +475,7 @@ function ProgressBar() {
 
 function Content() {
   const { ref, focusKey } = useFocusable();
+  const [userAgent, setUserAgent] = useState(null);
 
   const [selectedAsset, setSelectedAsset] = useState(null);
 
@@ -483,10 +493,14 @@ function Content() {
     [ref]
   );
 
+  useEffect(() => {
+    setUserAgent(window.navigator.userAgent);
+  }, []);
+
   return (
     <FocusContext.Provider value={focusKey}>
       <ContentWrapper>
-        <ContentTitle>Norigin Spatial Navigation</ContentTitle>
+        <ContentTitle>{userAgent} isTVEnvironment: {isTVEnvironment() ? 'true' : 'false'}</ContentTitle>
         <SelectedItemWrapper>
           <SelectedItemBox
             color={selectedAsset ? selectedAsset.color : '#565b6b'}
@@ -528,9 +542,58 @@ const GlobalStyle = createGlobalStyle`
   ::-webkit-scrollbar {
     display: none;
   }
-`;
+
+  /* Estilos específicos para TV */
+  * {
+    cursor: none !important;
+    outline: none !important;
+  }
+
+  body {
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    touch-action: manipulation;
+  }
+
+  /* Prevenir selección de texto en TV */
+  * {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  /* Ocultar barras de scroll en TV */
+  * {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  /* Prevenir zoom en TV */
+  html {
+    touch-action: manipulation;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+  }
+` as unknown as React.ComponentType;
 
 function App() {
+  // Hook para detectar entorno de TV y configurar navegación
+  useEffect(() => {
+    // Configurar entorno de TV si es necesario
+    configureTVEnvironment();
+
+    // Log para debugging
+    if (isTVEnvironment()) {
+      console.log('Entorno de TV detectado - Navegación espacial activada');
+    }
+  }, []);
+
   return (
     <React.StrictMode>
       <AppContainer>
