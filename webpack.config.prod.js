@@ -22,7 +22,7 @@ module.exports = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.jsx']
   },
-  externals: [/^lodash(\/.+)?$/],
+  externals: [],
   output: {
     filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
